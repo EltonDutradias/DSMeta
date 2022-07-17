@@ -1,14 +1,24 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import NotificationButton from '../NotificationButton';
 import './styles.css';
-function SalesCard() {  
-     
+function SalesCard() {
+
     const min = new Date(new Date().setDate(new Date().getDate() - 365));
     const max = new Date();
-    const [minDate, setMinDate] = useState (min);
+    const [minDate, setMinDate] = useState(min);
     const [maxDate, setMaxDate] = useState(max);
+
+    useEffect(() => {
+        axios.get("https://dsmeta-eltondutradias.herokuapp.com/sales")   
+             .then(response => { 
+                console.log(response.data);
+             });
+        
+    }, [])
+
     return (
         <div className="dsmeta-card">
             <h2 className="dsmeta-sales-title">Vendas</h2>
